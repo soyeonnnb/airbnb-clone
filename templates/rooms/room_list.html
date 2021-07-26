@@ -5,8 +5,10 @@ Home
 {% endblock page_name %}
 {%block content %}
 
-{% for page in rooms %}
-<h1>{{page.name}} / {{page.price}}</h1>
+{% for room in rooms %}
+<h4>
+    <a href="{% url 'rooms:detail' room.pk %}">{{room.name}} / {{room.price}}</a>
+</h4>
 {% endfor %}
 <div>
     {% if page_obj.has_previous %}
