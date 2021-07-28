@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block page_name %}
-Detail
-{% endblock page_name %}
+{% block page_title %}
+{{room.name}}
+{% endblock page_title %}
 
 {% block content %}
 <div>
@@ -27,7 +27,7 @@ Detail
         <li>{{f}}</li>
         {% endfor %}
     </ul>
-    <h3>House Ruels</h3>
+    <h3>House Rules</h3>
     <ul>
         {% for h in room.house_rules.all %}
         <li>{{h}}</li>
