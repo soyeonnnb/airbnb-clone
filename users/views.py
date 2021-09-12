@@ -24,3 +24,11 @@ class LoginView(FormView):
 def logout_view(request):
     logout(request)
     return redirect(reverse("core:home"))
+
+
+class SignUpView(FormView):
+
+    template_name = "users/signup.html"
+    success_url = reverse_lazy("core:home")
+    form_class = forms.SignUpForm
+    initial = {"first_name": "동혁", "last_name": "이", "email": "0825@dream.com"}
