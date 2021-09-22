@@ -3,7 +3,8 @@ from django.views import View
 from django.views.generic import FormView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login, logout
-from . import forms
+from django.db import IntegrityError
+from . import forms, models
 
 
 class LoginView(FormView):
@@ -29,17 +30,27 @@ def logout_view(request):
 class SignUpView(FormView):
 
     template_name = "users/signup.html"
-    success_url = reverse_lazy("core:home")
     form_class = forms.SignUpForm
-    initial = {"first_name": "동혁", "last_name": "이", "email": "0825@dream.com"}
+    success_url = reverse_lazy("core:home")
 
     # form 이 vaild해야 저장
-    def form_valid(self, form): 
+    def form_valid(self, form):
         form.save()
-        # 저장 후 로그인
         email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
             login(self.request, user)
-        return super().form_vaild(form)
+        user.verify_email()
+        return super().form_valid(form)
+
+
+def complete_verification(request, key):
+    try:
+        user = models.User.objects.get(email_secret=key)
+        user.email_verified = True
+        user.email_secret = ""
+        user.save()
+    except models.User.DoesNotExist:
+        pass
+    return redirect(reverse("core:home"))

@@ -20,19 +20,20 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User Does Not Exist."))
 
 
-class SignUpForm(forms.Form):
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ("first_name", "last_name", "email")
+        labels = {"first_name": "이름", "last_name": "성", "email": "이메일"}
 
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, label="비밀번호")
     password1 = forms.CharField(widget=forms.PasswordInput, label="비밀번호 확인")
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
         try:
             models.User.objects.get(email=email)
-            raise forms.ValidationError("이미 존재하는 이메일입니다.")
+            raise forms.ValidationError("이미 존재하는 이메일입니다.", code="existing_user")
         except models.User.DoesNotExist:
             return email
 
@@ -43,16 +44,12 @@ class SignUpForm(forms.Form):
             raise forms.ValidationError("비밀번호가 일치하지 않습니다.")
         else:
             return password
-    
-    def save(self):
-        first_name = self.cleaned_data.get("first_name")
-        last_name = self.cleaned_data.get("last_name")
+
+    def save(self, *args, **kwargs):
+        user = super().save(commit=False)
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
-
-        user = models.User.objects.create_user=(email, email, password)
-        user.first_name=first_name
-        user.last_name=last_name
+        # commit=False -> 생성은 하되 db에는 올리지 말라는 뜻
+        user.username = email
+        user.set_password(password)
         user.save()
-
-
