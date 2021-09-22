@@ -98,8 +98,11 @@ def github_callback(request):
                 if username is not None:
                     name = profile_json.get("name")
                     email = profile_json.get("email")
-                    print(email)
                     bio = profile_json.get("bio")
+                    if name is None:
+                        name = username
+                    if bio is None:
+                        bio = models.User.GENDER_OTHER
                     try:
                         user = models.User.objects.get(email=email)
                         if user.login_method != models.User.LOGIN_GITHUB:
@@ -111,6 +114,7 @@ def github_callback(request):
                             username=email,
                             bio=bio,
                             login_method=models.User.LOGIN_GITHUB,
+                            email_verified=True,
                         )
                         user.set_unusable_password()
                         user.save()
