@@ -1,0 +1,23 @@
+{
+  "name": "airbnb-clone",
+  "version": "1.0.0",
+  "description": "Cloning Airbnb with Python, Django, Tailwind and more.. 이전 파일 이어서 작성 (directory 오류)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soyeonnnb/airbnb-clone.git"
+  },
+  "homepage": "https://github.com/soyeonnnb/airbnb-clone#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.3.5",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.0.0",
+    "node-sass": "^6.0.1",
+    "postcss": "^8.3.7",
+    "tailwindcss": "^2.2.15"
+  },
+  "dependencies": {
+    "latest-version": "^6.0.0"
+  }
+}

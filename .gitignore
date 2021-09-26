@@ -139,3 +139,4 @@ cython_debug/
 
 # Personal
 uploads/
+node_modules/
