@@ -6,16 +6,20 @@
     "type": "git",
     "url": "git+https://github.com/soyeonnnb/airbnb-clone.git"
   },
+  "scripts": {
+    "css": "gulp"
+  },
   "homepage": "https://github.com/soyeonnnb/airbnb-clone#readme",
   "devDependencies": {
-    "autoprefixer": "^10.3.5",
+    "autoprefixer": "^10.3.6",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
     "gulp-postcss": "^9.0.1",
     "gulp-sass": "^5.0.0",
     "node-sass": "^6.0.1",
-    "postcss": "^8.3.7",
-    "tailwindcss": "^2.2.15"
+    "postcss": "^8.3.8",
+    "sass": "^1.42.1",
+    "tailwindcss": "^2.2.16"
   },
   "dependencies": {
     "latest-version": "^6.0.0"
