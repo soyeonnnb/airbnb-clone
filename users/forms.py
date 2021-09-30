@@ -1,12 +1,11 @@
 from django import forms
 from . import models
-from django.contrib.auth.forms import UserCreationForm
 
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget = forms.EmailInput(attrs={"placeholder": "이메일"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "비밀번호"}))
 
     def clean(self):
         email = self.cleaned_data.get("email")
@@ -25,10 +24,14 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ("first_name", "last_name", "email")
-        labels = {"first_name": "이름", "last_name": "성", "email": "이메일"}
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "이름"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "성"}),
+            "email": forms.EmailInput(attrs={"placeholder": "이메일"}),
+        }
 
-    password = forms.CharField(widget=forms.PasswordInput, label="비밀번호")
-    password1 = forms.CharField(widget=forms.PasswordInput, label="비밀번호 확인")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "비밀번호"}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "비밀번호 확인"}))
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
