@@ -19,6 +19,7 @@ class CustomUserAdmin(UserAdmin):
                     "birthdate",
                     "language",
                     "currency",
+                    "login_method",
                     "superhost",
                 )
             },
