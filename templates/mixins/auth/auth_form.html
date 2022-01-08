@@ -1,5 +1,5 @@
 <!-- action이 없으면 같은 페이지로 action이 자동으로 설정됨 -->
-<form method="POST" class="w-full">
+<form method="POST" class="w-full" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% if form.non_field_errors %}
