@@ -64,6 +64,11 @@ form {
   }
 }
 
+.border-section {
+  @apply border-b border-gray-400 pb-8 mt-8;
+}
+
+
 @keyframes messageFadeIn {
   0% {
     opacity: 0;
@@ -98,5 +103,6 @@ form {
     @apply bg-yellow-300;
   }
 }
+
 
 @tailwind utilities;
